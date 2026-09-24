@@ -93,7 +93,9 @@ function render(r: Result, s: AppState): void {
   }
   $('verdict-lines').replaceChildren(...v.lines.map((line) => Object.assign(document.createElement('li'), { textContent: line })));
 
-  const next = nextGlare(r.scan, Math.max(0, today));
+  const now = wallClock(Date.now(), s.timeZone);
+  const legEnds = [s.out, s.back].filter((l) => l.enabled).map((l) => l.depart + l.duration);
+  const next = nextGlare(r.scan, Math.max(0, today), now.hour * 60 + now.minute, legEnds);
   const nextEl = $('verdict-next');
   if (today >= 400 || today < 0) nextEl.textContent = '';
   else if (next) {

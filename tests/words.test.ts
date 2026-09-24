@@ -87,4 +87,15 @@ describe('words', () => {
     expect(n.day.legs[n.legIndex].glareMinutes).toBeGreaterThan(0);
     expect(nextGlare(scan, 400)).toBeNull();
   });
+
+  it('skips a glare drive that already finished today', () => {
+    const s = defaultState(2026);
+    const scan = scanYear(toCommute(s));
+    const first = nextGlare(scan, 0)!;
+    const ends = [s.out.depart + s.out.duration, s.back.depart + s.back.duration];
+    const later = nextGlare(scan, first.day.index, 23 * 60, ends)!;
+    expect(later.day.index).toBeGreaterThan(first.day.index);
+    const sameDay = nextGlare(scan, first.day.index, 0, ends)!;
+    expect(sameDay.day.index).toBe(first.day.index);
+  });
 });

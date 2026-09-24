@@ -93,12 +93,23 @@ export function sunPlacement(elevation: number, offset: number): string {
   return `${up}, ${side}`;
 }
 
-/** The next driving day with glare on or after `todayIndex`, if any, in this scan's year. */
-export function nextGlare(scan: YearScan, todayIndex: number): { day: DayResult; legIndex: number } | null {
+/**
+ * The next glare drive on or after `todayIndex`, if any, in this scan's year.
+ * With `nowMinute` and each leg's end time (minutes after midnight), drives that
+ * have already finished today are skipped.
+ */
+export function nextGlare(
+  scan: YearScan,
+  todayIndex: number,
+  nowMinute = -1,
+  legEnds: number[] = [],
+): { day: DayResult; legIndex: number } | null {
   for (let i = Math.max(0, todayIndex); i < scan.days.length; i++) {
     const d = scan.days[i];
     if (!d.driving) continue;
-    const legIndex = d.legs.findIndex((l) => l.glareMinutes > 0);
+    const legIndex = d.legs.findIndex(
+      (l, k) => l.glareMinutes > 0 && !(i === todayIndex && nowMinute >= 0 && legEnds[k] !== undefined && legEnds[k] <= nowMinute),
+    );
     if (legIndex >= 0) return { day: d, legIndex };
   }
   return null;

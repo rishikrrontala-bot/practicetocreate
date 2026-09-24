@@ -65,28 +65,37 @@ export class WindshieldView {
     this.sunGroup = el('g');
     this.svg.append(this.sunGroup);
 
-    // The car, as a photogram: white where it blocks the light.
-    const car = el('g', { fill: '#f3efe4' });
-    car.append(
-      // roof edge and header
-      el('path', { d: `M0,0 H${W} V36 C${W * 0.72},56 ${W * 0.28},56 0,36 Z` }),
-      // A-pillars
-      el('path', { d: `M0,30 L62,40 L128,${H - 110} L0,${H - 70} Z` }),
-      el('path', { d: `M${W},30 L${W - 44},44 L${W - 96},${H - 118} L${W},${H - 88} Z` }),
-      // driver's visor, flipped down
-      el('path', { d: 'M60,40 L318,50 L312,104 Q190,112 70,100 Z', opacity: 0.94 }),
-      // mirror
-      el('path', { d: `M${W / 2 + 40},50 h92 a10,10 0 0 1 10,10 v22 a10,10 0 0 1 -10,10 h-92 a10,10 0 0 1 -10,-10 v-22 a10,10 0 0 1 10,-10 Z` }),
-      el('rect', { x: W / 2 + 82, y: 38, width: 8, height: 14 }),
-      // dash
-      el('path', { d: `M0,${H - 74} C${W * 0.3},${H - 104} ${W * 0.7},${H - 104} ${W},${H - 92} V${H} H0 Z` }),
+    // The car, as a photogram: white where it blocks the light, edges softened
+    // like an object laid on sensitised paper.
+    const soft = el('filter', { id: 'photogram', x: '-2%', y: '-2%', width: '104%', height: '104%' });
+    soft.append(
+      el('feTurbulence', { type: 'fractalNoise', baseFrequency: '0.6', numOctaves: 2, seed: 3, result: 'n' }),
+      el('feDisplacementMap', { in: 'SourceGraphic', in2: 'n', scale: 3 }),
     );
-    // steering wheel, as a cut-out ring
-    const wheel = el('path', {
-      d: `M${W / 2 - 150},${H} A150,120 0 0 1 ${W / 2 + 150},${H} L${W / 2 + 128},${H} A128,100 0 0 0 ${W / 2 - 128},${H} Z`,
-      fill: '#f3efe4',
-    });
-    car.append(wheel);
+    defs.append(soft);
+    const car = el('g', { fill: '#f3efe4', filter: 'url(#photogram)' });
+    car.append(
+      // roof header
+      el('path', { d: `M0,0 H${W} V20 Q${W / 2},40 0,20 Z` }),
+      // A-pillars: the near (driver's) side wider than the far side
+      el('path', { d: 'M22,18 L70,26 Q104,210 156,404 L112,414 Q58,214 22,18 Z' }),
+      el('path', { d: `M${W - 18},18 L${W - 44},26 Q${W - 84},212 ${W - 128},398 L${W - 102},404 Q${W - 58},214 ${W - 18},18 Z` }),
+      // driver's visor, flipped down, with its hinge rod
+      el('rect', { x: 86, y: 34, width: 236, height: 54, rx: 9, opacity: 0.96 }),
+      el('rect', { x: 96, y: 26, width: 214, height: 10, rx: 4 }),
+      // rear-view mirror and stem
+      el('rect', { x: W / 2 + 18, y: 50, width: 128, height: 36, rx: 12 }),
+      el('rect', { x: W / 2 + 76, y: 30, width: 10, height: 22, rx: 3 }),
+      // dash with the instrument hood
+      el('path', { d: `M0,${H - 64} C${W * 0.22},${H - 86} ${W * 0.36},${H - 92} ${W / 2 - 120},${H - 94} Q${W / 2},${H - 118} ${W / 2 + 120},${H - 94} C${W * 0.7},${H - 90} ${W * 0.86},${H - 84} ${W},${H - 72} V${H} H0 Z` }),
+    );
+    // steering wheel rim, a band in front of the driver
+    car.append(
+      el('path', {
+        d: `M${W / 2 - 176},${H} A176,118 0 0 1 ${W / 2 + 176},${H} L${W / 2 + 158},${H} A158,102 0 0 0 ${W / 2 - 158},${H} Z`,
+        fill: '#f3efe4',
+      }),
+    );
     this.svg.append(car);
 
     this.note = el('text', {

@@ -7,6 +7,7 @@
 | Phase start (ET) | Hours to deadline |
 |---|---|
 | Wed Sep 23 · 10:28 PM EDT (session start) | 38.3 h |
+| Wed Sep 23 · 11:03 PM EDT (paused at Rishik's request) | 37.7 h |
 
 ## Phase plan (budgeted backwards from the 06:45 AM Fri internal finish line, ≈32 h of work time)
 | # | Phase | Budget | Window (ET) | Status |
@@ -14,8 +15,8 @@
 | 0 | Countdown, tool check, PROGRESS.md | 0.25 h | Wed 22:28 to 22:45 | done |
 | 1–2 | Research: verify event facts, winners, brief (one compressed pass, <48 h left) | 0.75 h | Wed 22:45 to 23:30 | done |
 | 3 | Concepts ×3 scored, pick, CONCEPT.md pushed | 0.5 h | Wed 23:30 to Thu 00:00 | done (Low Sun, 4.75) |
-| 4 | Design direction: PRODUCT.md + DESIGN.md | 0.5 h | Thu 00:00 to 00:30 | |
-| 5 | Core build: the wow moment, then the demo path, then the rest (~50%) | 13 h | Thu 00:30 to 13:30 | |
+| 4 | Design direction: PRODUCT.md + DESIGN.md | 0.5 h | Thu 00:00 to 00:30 | done (cyanotype sun-print) |
+| 5 | Core build: the wow moment, then the demo path, then the rest (~50%) | 13 h | Thu 00:30 to 13:30 | **in progress**: app works end to end locally |
 | 6 | Quality passes: critique → audit → polish, tests, live check | 2.5 h | Thu 13:30 to 16:00 | |
 | 7 | Demo video 3:00–5:00, captioned (~20%) | 5 h | Thu 16:00 to 21:00 | |
 | 8 | Submission kit: docs, DEVPOST.md, deck.pdf, gallery, SOURCES-AND-AI (~15%) | 4.5 h | Thu 21:00 to Fri 01:30 | |
@@ -37,3 +38,21 @@
 ## Log
 - **Wed 22:28 EDT**: session start, countdown, tool check, PROGRESS.md created.
 - **Wed 22:37 EDT (38.1 h left)**: research done (5 search-verified winner briefs, RESEARCH-BRIEF.md). The event is first-edition and mainly an ideathon, so a working product is the differentiator. HACKATHON.md updated with 4 new rules (mention existing solutions; AI honesty; video must show issue/solution/implementation; ideathon). Concept picked: **Low Sun**, the glare calendar for your commute (4.75 vs 3.75 vs 3.75). CONCEPT.md pushed.
+- **Wed 23:03 EDT (37.7 h left): PAUSED at Rishik's request ("push everything and stop" at 11:06 PM).** Everything is committed and pushed.
+
+## Where things stand (for the resumed session)
+**Working, and pushed:**
+- Engine (`src/engine/`): solar.ts (NOAA/Meeus, within 0.003° of NREL SPA), time.ts (Intl-based zones and DST, ZoneYear fast path), glare.ts (25° zone; levels at 25°/15°/8°; the counted level defaults to 15°), scan.ts (year scan, seasons incl. wrap across New Year, shift planner, summary, sun grid), henge.ts (Hayden method; AMNH 2026 times match to the minute on all 4 dates; dates within 1 to 3 days, documented), ics.ts (RFC 5545), export.ts (glare drives → events), geo.ts (bearing, coordinate parsing, declination), state.ts (presets and URL hash), words.ts (all sentences built from numbers).
+- Tests: **80 passing** (`npx vitest run`), typecheck clean, `npm run build` OK.
+- UI: `index.html`, `src/main.ts`, `src/ui/{plate,view,compass}.ts`, `src/styles/{tokens,main}.css`, `src/compute.ts`, `src/worker.ts`. Local screenshots at 1440 and 375 px: zero console errors, no horizontal scroll.
+- The last change (unverified visually): Plate II moved above the slip; photogram car redrawn with finer pillars, visor, mirror and dash.
+
+**Next steps, in order:**
+1. Screenshot again (`npx vite preview`, then a Playwright script run from the repo root) and check the redrawn windshield and the new side-column order.
+2. Add the CI workflow (`.github/workflows/ci.yml`: typecheck + vitest + build + playwright). Pages already deploys from any branch via `pages.yml`; verify the Actions run through the GitHub MCP tools (github.io is blocked from this VM).
+3. Playwright e2e on the demo path (`e2e/`): load → verdict + plates render; scrub by keyboard; change preset; ICS download; share link; 375 px layout; no console errors.
+4. Impeccable critique → audit → polish (`/tmp/skills/impeccable`, re-clone per the CLAUDE.md fallbacks), then `impeccable detect --json`.
+5. Docs: README (hero, live link, Mermaid), docs/ARCHITECTURE.md, docs/LIMITATIONS.md, docs/EXPLAIN-IT.md, LICENSE (MIT).
+6. Demo video 3:00–5:00 (ui-demo skill + ffmpeg at `/usr/local/bin/ffmpeg`, from `pip install imageio-ffmpeg`), captions burned in; submission/VIDEO-SCRIPT.md.
+7. Submission kit: submission/DEVPOST.md, SOURCES-AND-AI.md, deck.pdf (8–10 slides), gallery PNGs (≥5 at 1500×1000 + thumbnail), CHECKLIST.md.
+8. Merge to main, verify the deploy through the API, write HANDOFF.md.
