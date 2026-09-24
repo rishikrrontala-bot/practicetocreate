@@ -1,6 +1,6 @@
 # CONCEPT: Low Sun
 
-**Event:** Practice to Create [Feedback To All Projects!] · **Lane:** open, an everyday overlooked problem with a visually striking result · **Claimed:** Wed Sep 23 2026, 23:25 EDT
+**Event:** Practice to Create [Feedback To All Projects!] · **Lane:** open, an everyday overlooked problem with a visually striking result · **Claimed:** Wed Sep 23 2026, 22:37 EDT
 
 **One line:** *The glare calendar for your commute.* Low Sun shows the exact mornings and evenings this year when you'll be driving straight into a low sun, and how many minutes earlier or later to leave to avoid it.
 

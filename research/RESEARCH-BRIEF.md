@@ -1,6 +1,6 @@
 # Research brief: Practice to Create [Feedback To All Projects!]
 
-*One compressed pass (under 48 h to deadline), Wed Sep 23 2026, 22:45 to 23:20 EDT.*
+*One compressed pass (under 48 h to deadline), Wed Sep 23 2026, 22:29 to 22:36 EDT by the clock (searches batched in parallel).*
 
 ## How this research was done, and its limits (read first)
 This cloud VM's network policy **blocks devpost.com and every *.devpost.com page**, plus figma.com, oit.uci.edu, wikipedia.org and most other hosts, for both `curl` and WebFetch (see PROGRESS.md › Environment facts). Only WebSearch (which runs server-side) works. So:

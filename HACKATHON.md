@@ -6,7 +6,7 @@
 
 *Facts read from the live Devpost page on 2026-09-23. ⚠ = unconfirmed, so verify before relying on it.*
 
-*Re-verification, Wed Sep 23 2026, 23:20 EDT: this VM's egress policy blocks devpost.com, so the pages couldn't be re-opened. The facts were cross-checked through WebSearch's reading of the live page and its Startup Networks mirror; nothing contradicted the deadline, rubric, prizes or video length. Four rules that weren't captured before were found and added below (marked **new**).*
+*Re-verification, Wed Sep 23 2026, 22:35 EDT: this VM's egress policy blocks devpost.com, so the pages couldn't be re-opened. The facts were cross-checked through WebSearch's reading of the live page and its Startup Networks mirror; nothing contradicted the deadline, rubric, prizes or video length. Four rules that weren't captured before were found and added below (marked **new**).*
 
 ## Devpost status
 Rishik already has a **draft submission** on Devpost for this event (its contents are unknown to this repo). HANDOFF.md must tell him to replace that draft with this project.
