@@ -8,6 +8,7 @@
 |---|---|
 | Wed Sep 23 · 10:28 PM EDT (session start) | 38.3 h |
 | Wed Sep 23 · 11:03 PM EDT (paused at Rishik's request) | 37.7 h |
+| Thu Sep 24 · 03:08 PM EDT (resumed: DEVPOST.md) | 21.6 h |
 
 ## Phase plan (budgeted backwards from the 06:45 AM Fri internal finish line, ≈32 h of work time)
 | # | Phase | Budget | Window (ET) | Status |
@@ -42,7 +43,7 @@
 
 ## Where things stand (for the resumed session)
 **Working, and pushed:**
-- Engine (`src/engine/`): solar.ts (NOAA/Meeus, within 0.003° of NREL SPA), time.ts (Intl-based zones and DST, ZoneYear fast path), glare.ts (25° zone; levels at 25°/15°/8°; the counted level defaults to 15°), scan.ts (year scan, seasons incl. wrap across New Year, shift planner, summary, sun grid), henge.ts (Hayden method; AMNH 2026 times match to the minute on all 4 dates; dates within 1 to 3 days, documented), ics.ts (RFC 5545), export.ts (glare drives → events), geo.ts (bearing, coordinate parsing, declination), state.ts (presets and URL hash), words.ts (all sentences built from numbers).
+- Engine (`src/engine/`): solar.ts (NOAA/Meeus, within 0.003° of NREL SPA), time.ts (Intl-based zones and DST, ZoneYear fast path), glare.ts (25° zone; levels at 25°/15°/8°; the counted level defaults to 15°), scan.ts (year scan, seasons incl. wrap across New Year, shift planner, summary, sun grid), henge.ts (Hayden method; AMNH 2026 times within a minute on all 4 dates, three to the exact minute (half sun May 28 is 8:13:18 PM vs AMNH 8:14); dates within 1 to 3 days, documented), ics.ts (RFC 5545), export.ts (glare drives → events), geo.ts (bearing, coordinate parsing, declination), state.ts (presets and URL hash), words.ts (all sentences built from numbers).
 - Tests: **80 passing** (`npx vitest run`), typecheck clean, `npm run build` OK.
 - UI: `index.html`, `src/main.ts`, `src/ui/{plate,view,compass}.ts`, `src/styles/{tokens,main}.css`, `src/compute.ts`, `src/worker.ts`. Local screenshots at 1440 and 375 px: zero console errors, no horizontal scroll.
 - The last change (unverified visually): Plate II moved above the slip; photogram car redrawn with finer pillars, visor, mirror and dash.
@@ -54,5 +55,6 @@
 4. Impeccable critique → audit → polish (`/tmp/skills/impeccable`, re-clone per the CLAUDE.md fallbacks), then `impeccable detect --json`.
 5. Docs: README (hero, live link, Mermaid), docs/ARCHITECTURE.md, docs/LIMITATIONS.md, docs/EXPLAIN-IT.md, LICENSE (MIT).
 6. Demo video 3:00–5:00 (ui-demo skill + ffmpeg at `/usr/local/bin/ffmpeg`, from `pip install imageio-ffmpeg`), captions burned in; submission/VIDEO-SCRIPT.md.
-7. Submission kit: submission/DEVPOST.md, SOURCES-AND-AI.md, deck.pdf (8–10 slides), gallery PNGs (≥5 at 1500×1000 + thumbnail), CHECKLIST.md.
+7. Submission kit: ~~submission/DEVPOST.md~~ (done Thu 15:15), SOURCES-AND-AI.md (DEVPOST.md already points to it), deck.pdf (8–10 slides), gallery PNGs (≥5 at 1500×1000 + thumbnail), CHECKLIST.md.
 8. Merge to main, verify the deploy through the API, write HANDOFF.md.
+- **Thu 15:15 EDT (21.5 h left)**: resumed at Rishik's request to write `submission/DEVPOST.md`. Every number in it was re-derived from the code (sources table at the bottom of the file). Verified through the GitHub API that the Pages deploy of the latest commit **succeeded** (run 9). The earlier failed runs came before index.html existed.
