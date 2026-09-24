@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Low Sun: the glare calendar for your commute</title>
+    <meta name="description" content="Low Sun finds the exact mornings and evenings this year when you'll drive straight into a low sun, and how many minutes earlier or later to leave. Computed on your device." />
+    <meta name="author" content="Rishik Rontala" />
+    <meta name="theme-color" content="#102E6B" />
+    <meta name="color-scheme" content="dark" />
+    <meta property="og:title" content="Low Sun: the glare calendar for your commute" />
+    <meta property="og:description" content="The exact dates your drive meets a low sun, and when to leave instead. On-device, no account." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="./og.png" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <a class="skip" href="#slip">Skip to the controls</a>
+
+    <svg class="defs" aria-hidden="true" focusable="false">
+      <filter id="emulsion" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035 0.09" numOctaves="3" seed="7" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </svg>
+
+    <header class="masthead">
+      <p class="wordmark" translate="no">Low Sun</p>
+      <p class="deck">The glare calendar for your commute</p>
+    </header>
+
+    <main id="main">
+      <section class="stage" aria-labelledby="verdict">
+        <div class="stage__main">
+          <h1 id="verdict" class="verdict">Working out your year…</h1>
+          <ul class="verdict__lines" id="verdict-lines"></ul>
+          <p class="verdict__next" id="verdict-next"></p>
+
+          <figure class="plate plate--year" id="plate-year">
+            <figcaption class="plate__caption">
+              <span class="plate__title">Plate I. The year, exposed.</span>
+              <span class="plate__meta" id="plate-year-meta"></span>
+            </figcaption>
+            <div class="plate__coat">
+              <div class="plate__field" id="year-field">
+                <canvas id="year-canvas" aria-hidden="true"></canvas>
+                <svg class="plate__overlay" id="year-overlay" aria-hidden="true"></svg>
+                <div class="plate__develop" aria-hidden="true"></div>
+                <div
+                  class="plate__scrub"
+                  id="year-scrub"
+                  tabindex="0"
+                  role="group"
+                  aria-roledescription="glare calendar"
+                  aria-label="Glare calendar: every day of the year across, every hour of the day down. Use the arrow keys to move through days and times."
+                  aria-describedby="scrub-readout"
+                ></div>
+              </div>
+            </div>
+            <div class="plate__foot">
+              <ol class="wedge" aria-label="Key">
+                <li><span class="wedge__swatch wedge__swatch--night"></span>Night</li>
+                <li><span class="wedge__swatch wedge__swatch--day"></span>Daylight</li>
+                <li><span class="wedge__swatch wedge__swatch--l1"></span>Dazzle, sun within 25°</li>
+                <li><span class="wedge__swatch wedge__swatch--l2"></span>Glare, within 15°</li>
+                <li><span class="wedge__swatch wedge__swatch--l3"></span>Blinding, within 8°</li>
+                <li><span class="wedge__swatch wedge__swatch--hit"></span>Your drive, in it</li>
+              </ol>
+              <p class="plate__hint">Drag across the plate, or focus it and use the arrow keys.</p>
+            </div>
+          </figure>
+        </div>
+
+        <aside class="stage__side">
+          <form class="slip" id="slip" aria-label="Your commute" novalidate>
+            <h2 class="slip__title">Your commute</h2>
+
+            <fieldset class="slip__group">
+              <legend>Where</legend>
+              <div class="field">
+                <label for="preset">Place</label>
+                <select id="preset" name="preset"></select>
+              </div>
+              <div class="field field--row">
+                <button type="button" class="btn btn--ghost" id="locate">Use my location</button>
+                <span class="field__note" id="locate-note" role="status"></span>
+              </div>
+              <div class="field">
+                <label for="coords">Coordinates <span class="field__aside">or a map link</span></label>
+                <input id="coords" name="coords" type="text" inputmode="text" autocomplete="off" spellcheck="false" />
+                <span class="field__note" id="coords-note" role="status"></span>
+              </div>
+            </fieldset>
+
+            <fieldset class="slip__group" id="leg-out">
+              <legend>
+                <label class="toggle"><input type="checkbox" id="out-on" checked /> <span>Morning drive</span></label>
+              </legend>
+              <div class="leg">
+                <div class="compass" id="out-compass"></div>
+                <div class="leg__fields">
+                  <div class="field">
+                    <label for="out-time">Leave at</label>
+                    <input id="out-time" type="time" step="60" required />
+                  </div>
+                  <div class="field">
+                    <label for="out-dur">Drive for <span class="field__aside">minutes</span></label>
+                    <input id="out-dur" type="number" min="1" max="180" step="1" inputmode="numeric" required />
+                  </div>
+                  <div class="field">
+                    <label for="out-heading">Heading <span class="field__aside">° true</span></label>
+                    <input id="out-heading" type="number" min="0" max="359.9" step="0.1" inputmode="decimal" required />
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="slip__group" id="leg-back">
+              <legend>
+                <label class="toggle"><input type="checkbox" id="back-on" checked /> <span>Evening drive</span></label>
+              </legend>
+              <label class="toggle toggle--small"><input type="checkbox" id="back-reverse" checked /> <span>Same road, the other way</span></label>
+              <div class="leg">
+                <div class="compass" id="back-compass"></div>
+                <div class="leg__fields">
+                  <div class="field">
+                    <label for="back-time">Leave at</label>
+                    <input id="back-time" type="time" step="60" required />
+                  </div>
+                  <div class="field">
+                    <label for="back-dur">Drive for <span class="field__aside">minutes</span></label>
+                    <input id="back-dur" type="number" min="1" max="180" step="1" inputmode="numeric" required />
+                  </div>
+                  <div class="field">
+                    <label for="back-heading">Heading <span class="field__aside">° true</span></label>
+                    <input id="back-heading" type="number" min="0" max="359.9" step="0.1" inputmode="decimal" required />
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <details class="slip__more" id="direction-tools">
+              <summary>Other ways to set the direction</summary>
+              <div class="field">
+                <span class="field__label">Point your phone down the road</span>
+                <button type="button" class="btn btn--ghost" id="aim">Aim with the compass</button>
+                <span class="field__note" id="aim-note" role="status">Needs a phone with a compass. Hold it flat, top edge pointing the way you drive.</span>
+              </div>
+              <div class="field">
+                <label for="from-pt">Two points on the road, in the direction you drive</label>
+                <input id="from-pt" type="text" placeholder="From: 40.7489, -73.9681" autocomplete="off" spellcheck="false" />
+                <input id="to-pt" type="text" placeholder="To: 40.7625, -73.9998" autocomplete="off" spellcheck="false" aria-label="Second point" />
+                <button type="button" class="btn btn--ghost" id="use-points">Use these points for the morning drive</button>
+                <span class="field__note" id="points-note" role="status"></span>
+              </div>
+            </details>
+
+            <fieldset class="slip__group">
+              <legend>Days you drive</legend>
+              <div class="days" id="days"></div>
+            </fieldset>
+
+            <fieldset class="slip__group">
+              <legend>Count the sun as in your eyes when it’s within</legend>
+              <div class="steps" id="level" role="radiogroup" aria-label="Glare threshold">
+                <label><input type="radio" name="level" value="1" /> <span>25°</span></label>
+                <label><input type="radio" name="level" value="2" /> <span>15°</span></label>
+                <label><input type="radio" name="level" value="3" /> <span>8°</span></label>
+              </div>
+              <p class="field__note">Of straight ahead. 15° is the default: about three times the veiling glare of a sun at the 25° edge.</p>
+            </fieldset>
+
+            <div class="field">
+              <label for="year">Year</label>
+              <select id="year"></select>
+            </div>
+
+            <div class="slip__actions">
+              <button type="button" class="btn btn--ink" id="ics">Add glare drives to my calendar</button>
+              <button type="button" class="btn btn--ghost" id="share">Copy a link to this commute</button>
+              <span class="field__note" id="actions-note" role="status"></span>
+            </div>
+          </form>
+
+          <figure class="plate plate--view" id="plate-view">
+            <figcaption class="plate__caption">
+              <span class="plate__title">Plate II. The view ahead.</span>
+              <span class="plate__meta" id="view-meta"></span>
+            </figcaption>
+            <div class="plate__coat">
+              <div class="view" id="view"></div>
+            </div>
+            <p class="view__readout" id="scrub-readout" aria-live="polite"></p>
+          </figure>
+        </aside>
+      </section>
+
+      <section class="seasons" id="seasons" aria-labelledby="seasons-title">
+        <h2 id="seasons-title" class="section-title">Your glare seasons</h2>
+        <p class="section-lede" id="seasons-lede"></p>
+        <ol class="season-list" id="season-list"></ol>
+        <p class="henge-note" id="henge-note"></p>
+      </section>
+
+      <section class="proof" id="proof" aria-labelledby="proof-title">
+        <h2 id="proof-title" class="section-title">Is the maths right?</h2>
+        <p class="section-lede">
+          The same engine that draws your plate is checked, live in this page, against two published answers.
+        </p>
+        <div class="proof__grid">
+          <div class="proof__item">
+            <h3>Manhattanhenge 2026</h3>
+            <p>
+              The American Museum of Natural History publishes the evenings when the setting sun lines up with
+              Manhattan’s cross streets (bearing 299.1°). On each of their dates, here is the minute Low Sun puts the
+              sun on that bearing.
+            </p>
+            <table class="proof__table" id="proof-henge">
+              <thead>
+                <tr><th scope="col">AMNH says</th><th scope="col">Low Sun computes</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="proof__item">
+            <h3>NREL’s reference case</h3>
+            <p>
+              NREL’s Solar Position Algorithm paper (Reda &amp; Andreas, 2004) gives a worked example: Golden, Colorado,
+              17 October 2003, 12:30:30 local time.
+            </p>
+            <table class="proof__table" id="proof-spa">
+              <thead>
+                <tr><th scope="col"></th><th scope="col">NREL SPA</th><th scope="col">Low Sun</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="method" aria-labelledby="method-title">
+        <h2 id="method-title" class="section-title">How it works</h2>
+        <ol class="method__steps">
+          <li>
+            <h3>Where the sun is, every minute</h3>
+            <p>
+              For your place, Low Sun computes the sun’s direction and height for every minute you drive, all year, using
+              NOAA’s solar position algorithm, with daylight saving applied from your time zone. It all runs in your
+              browser; nothing about where you drive leaves your device.
+            </p>
+          </li>
+          <li>
+            <h3>Is it in your eyes?</h3>
+            <p>
+              A low sun counts as glare when it is above the horizon and within 25° of the way you’re facing, across and
+              up: the zone used in road-safety studies of sun glare. Inside that zone the closer it sits to straight ahead,
+              the worse it gets. Veiling glare rises roughly with the inverse square of the angle, so within 15° is about
+              three times worse, and within 8° about ten times worse, than at the 25° edge.
+            </p>
+          </li>
+          <li>
+            <h3>Dates, not warnings</h3>
+            <p>
+              The glare days group into seasons, usually a few weeks in spring and in autumn for each direction. For each
+              season Low Sun finds the smallest change of departure time that clears every drive in it, and exports each
+              glare drive to your calendar with a reminder an hour before.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="limits" aria-labelledby="limits-title">
+        <h2 id="limits-title" class="section-title">What it can’t see</h2>
+        <ul class="limits__list">
+          <li><strong>Weather.</strong> It assumes a clear sky. A cloudy glare day is just a day.</li>
+          <li><strong>Buildings, trees and hills.</strong> They can hide a low sun. They can’t make one appear, so a listed date can only turn out milder, never worse.</li>
+          <li><strong>Curves.</strong> Each drive is one straight heading. A road that bends spends only part of the drive facing the sun.</li>
+          <li><strong>Your car.</strong> Visor size, seat height and a dirty windshield change how bad glare feels; the geometry stays the same.</li>
+          <li><strong>It’s a planning tool.</strong> Use it the night before, never at the wheel. Nothing here guarantees a safe drive.</li>
+        </ul>
+      </section>
+
+      <section class="prior" aria-labelledby="prior-title">
+        <h2 id="prior-title" class="section-title">Already out there</h2>
+        <p class="section-lede">Glare prediction isn’t new, and the rules of this event ask for prior work to be named.</p>
+        <ul class="prior__list">
+          <li>
+            <strong>SunGlare</strong> (iOS app): predicts when and where sun glare happens on the roads you drive.
+          </li>
+          <li>
+            <strong>ZILL: Sun Smart Route Planner</strong> (Android app): the sun’s position relative to the road along a trip, with glare alerts.
+          </li>
+        </ul>
+        <p>
+          Low Sun’s difference: it shows a whole <em>year</em> of one commute at once, so the glare seasons are visible
+          months ahead; it gives the smallest change of departure time that avoids each season; it hands those dates to
+          the calendar you already use; it runs entirely on your device with no account; and its maths is checked in
+          public, on this page.
+        </p>
+      </section>
+    </main>
+
+    <footer class="colophon">
+      <p class="colophon__credit">Built by Rishik Rontala.</p>
+      <p>
+        Solar position: NOAA / Meeus. Checked against NREL SPA and AMNH. Glare zone: road-safety literature on sun glare
+        (Mitra 2014; Das et al. 2022). Type: IM Fell French Canon (Igino Marini), Atkinson Hyperlegible Next and Mono
+        (Braille Institute). Built with Claude Code (Anthropic) as an AI coding agent, directed by Rishik.
+      </p>
+      <p>
+        <a href="https://github.com/rishikrrontala-bot/practicetocreate">Source, tests and sources on GitHub</a>
+      </p>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

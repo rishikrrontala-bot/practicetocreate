@@ -1,0 +1,49 @@
+:root {
+  /* Cyanotype: Prussian blue paper, unexposed-paper white, and the sun. */
+  --night: #0a2150;
+  --ground: #102e6b;
+  --wash: #1a4290;
+  --wash-2: #22509f;
+  --paper: #f3efe4;
+  --paper-dim: #c9d3ea;
+  --paper-faint: rgba(243, 239, 228, 0.62);
+  --line: rgba(243, 239, 228, 0.22);
+  --line-strong: rgba(243, 239, 228, 0.45);
+  --burn: #ffffff;
+  --sun: #ffb547;
+  --ink: #0a2150;
+  --ink-dim: #34466e;
+  --error: #ffd0c2;
+
+  --font-display: 'IM Fell French Canon', 'Iowan Old Style', Georgia, serif;
+  --font-ui: 'Atkinson Hyperlegible Next Variable', 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+  --font-mono: 'Atkinson Hyperlegible Mono Variable', 'Atkinson Hyperlegible Mono', ui-monospace, monospace;
+
+  /* Type scale (1.25, fluid at the top end). */
+  --t-xs: 0.8125rem;
+  --t-sm: 0.9375rem;
+  --t-md: 1.0625rem;
+  --t-lg: 1.3125rem;
+  --t-xl: clamp(1.4rem, 1.1rem + 1vw, 1.65rem);
+  --t-2xl: clamp(1.7rem, 1.2rem + 1.6vw, 2.1rem);
+  --t-3xl: clamp(2rem, 1.3rem + 2.4vw, 2.6rem);
+  --t-display: clamp(3rem, 1.6rem + 5vw, 5.5rem);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 7rem;
+
+  --gutter: clamp(1rem, 0.4rem + 2.6vw, 3rem);
+  --measure: 66ch;
+
+  /* Motion (emil animate tokens). */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --develop: 900ms;
+}
