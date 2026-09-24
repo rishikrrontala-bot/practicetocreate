@@ -1,0 +1,32 @@
+{
+  "name": "low-sun",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Low Sun: the glare calendar for your commute. Finds the exact mornings and evenings you will drive into a low sun, on-device.",
+  "author": "Rishik Rontala",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 4173 --strictPort",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "e2e": "playwright test",
+    "check": "npm run typecheck && npm run test && npm run build"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.6",
+    "vitest": "^5.0.1"
+  },
+  "dependencies": {
+    "@fontsource-variable/atkinson-hyperlegible-mono": "^5.3.0",
+    "@fontsource-variable/atkinson-hyperlegible-next": "^5.3.0",
+    "@fontsource/im-fell-french-canon": "^5.3.0",
+    "@photostructure/tz-lookup": "^11.7.0",
+    "geomagnetism": "^0.2.0"
+  }
+}
