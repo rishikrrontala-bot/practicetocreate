@@ -12,8 +12,8 @@
 | # | Phase | Budget | Window (ET) | Status |
 |---|---|---|---|---|
 | 0 | Countdown, tool check, PROGRESS.md | 0.25 h | Wed 22:28 to 22:45 | done |
-| 1–2 | Research: verify event facts, winners, brief (one compressed pass, <48 h left) | 0.75 h | Wed 22:45 to 23:30 | in progress |
-| 3 | Concepts ×3 scored, pick, CONCEPT.md pushed | 0.5 h | Wed 23:30 to Thu 00:00 | |
+| 1–2 | Research: verify event facts, winners, brief (one compressed pass, <48 h left) | 0.75 h | Wed 22:45 to 23:30 | done |
+| 3 | Concepts ×3 scored, pick, CONCEPT.md pushed | 0.5 h | Wed 23:30 to Thu 00:00 | done (Low Sun, 4.75) |
 | 4 | Design direction: PRODUCT.md + DESIGN.md | 0.5 h | Thu 00:00 to 00:30 | |
 | 5 | Core build: the wow moment, then the demo path, then the rest (~50%) | 13 h | Thu 00:30 to 13:30 | |
 | 6 | Quality passes: critique → audit → polish, tests, live check | 2.5 h | Thu 13:30 to 16:00 | |
@@ -36,3 +36,4 @@
 
 ## Log
 - **Wed 22:28 EDT**: session start, countdown, tool check, PROGRESS.md created.
+- **Wed 23:25 EDT (37.3 h left)**: research done (5 search-verified winner briefs, RESEARCH-BRIEF.md). The event is first-edition and mainly an ideathon, so a working product is the differentiator. HACKATHON.md updated with 4 new rules (mention existing solutions; AI honesty; video must show issue/solution/implementation; ideathon). Concept picked: **Low Sun**, the glare calendar for your commute (4.75 vs 3.75 vs 3.75). CONCEPT.md pushed.

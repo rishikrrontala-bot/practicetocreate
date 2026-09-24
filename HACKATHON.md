@@ -6,21 +6,26 @@
 
 *Facts read from the live Devpost page on 2026-09-23. ⚠ = unconfirmed, so verify before relying on it.*
 
+*Re-verification, Wed Sep 23 2026, 23:20 EDT: this VM's egress policy blocks devpost.com, so the pages couldn't be re-opened. The facts were cross-checked through WebSearch's reading of the live page and its Startup Networks mirror; nothing contradicted the deadline, rubric, prizes or video length. Four rules that weren't captured before were found and added below (marked **new**).*
+
 ## Devpost status
 Rishik already has a **draft submission** on Devpost for this event (its contents are unknown to this repo). HANDOFF.md must tell him to replace that draft with this project.
 
 ## Eligibility
-⚠ Not captured, so re-check the rules page (Devpost lists it as an open online student event).
+⚠ Still not captured: the rules page is unreachable from this VM, and WebSearch surfaced no eligibility text. Devpost lists it as an open online event. HANDOFF.md asks Rishik to glance at the eligibility line before submitting.
 
 ## Theme
 “Create a project that solves an issue.” The problem can relate to the Sustainable Development Goals, daily inconveniences, overlooked challenges, or ineffective existing solutions. Figma/Canva prototypes, slide presentations and coding projects are all accepted. AI use is permitted but must be disclosed truthfully.
+- **new:** it is "mainly an ideathon": coding isn't required, and a Figma or Canva prototype is "perfectly acceptable". So most of the field will submit prototypes and slides, and a working, deployed product stands out.
+- **new:** the idea should "ideally be original and new". You may improve on an existing solution, **but you must mention it in your presentation**.
+- **new:** generative AI is allowed, but "if AI is detected and you lie about not using it you will be disqualified".
 
 ## Prizes
 - Personalized feedback from an experienced innovator (up to 999 winners)
 - 1st / 2nd / 3rd Place certificates
 
 ## Submission requirements (from the event page)
-- **A 3–5 minute video presenting the project (required)**
+- **A 3–5 minute video presenting the project (required)**. **new:** "the issue you're solving, the solution, and how it can/is implemented should be clear".
 - Documentation of every source and AI model/tool used
 - Supporting materials: prototype links, slide presentation, GitHub repository, etc.
 
