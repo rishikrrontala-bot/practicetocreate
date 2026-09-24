@@ -1,0 +1,21 @@
+You're running unattended in a Claude Code cloud session on my entry for **Practice to Create [Feedback To All Projects!]**. I'm not available to answer questions. Every decision the hackathon-win skill reserves for me is yours: pick the top-scoring concept on the weighted rubric and record the alternatives.
+
+Read `CLAUDE.md`, `HACKATHON.md` and `.claude/skills/hackathon-win/SKILL.md` (plus its `references/` and `templates/`) first. Then execute the whole thing end to end: research, concept, design, build, tests, docs, polish, demo video, submission kit, deploy. Don't stop at a plan. The deliverable is the finished, deployed, submission-ready project.
+
+The standard: the marginal cost of completeness is near zero with AI. Do the whole thing. Do it right. Do it with tests. Do it with documentation. Make it so good I'm genuinely impressed, not politely satisfied. Never "table this for later" when the permanent fix is within reach, never leave a dangling thread, never present a workaround when the real fix exists. Search before building. Test before shipping. Ship the complete thing. Time, fatigue and complexity are not excuses.
+
+Order of work:
+0. Run `TZ=America/New_York date` and compute the hours left to the deadline in HACKATHON.md. Create `PROGRESS.md` with the countdown and a phase plan budgeted backwards (hackathon-win Phase 4 table). If under 48 h remain, compress research to one 30-minute pass.
+1. Check your tools. List the available skills and confirm `impeccable`, `emil-design-skills:animate`, taste-skill, `hypersite`, `ui-demo` and `dataviz` are loaded; for any that's missing, use the Fallbacks in CLAUDE.md. Check `node -v`, Playwright Chromium and ffmpeg (see the CLAUDE.md cloud notes), and whether my n8n Pro API is reachable (CLAUDE.md, *n8n* section). Use n8n wherever a feature needs a secret, a schedule or an integration.
+2. Research (hackathon-win Phases 0–2). Verify every fact in HACKATHON.md against the live Devpost overview and `/rules` pages, and fix the file if anything changed, especially the deadline and anything marked ⚠. Find 5–8 real, opened-and-verified past winners (prior editions → same organizer → same sponsors → same domain), one brief each in `research/winners/`. Write `research/RESEARCH-BRIEF.md`.
+3. Concept (Phase 3). Run `bash scripts/siblings.sh` and read my other entries' concepts so this one doesn't overlap them or my past projects. Score three distinct concepts in `research/CONCEPTS.md`, pick the winner, write `CONCEPT.md`, and push it immediately.
+4. Design direction. Run impeccable's shape step to get `PRODUCT.md` + `DESIGN.md`, with an art direction specific to this concept.
+5. Build (Phase 4). The wow moment end to end first, then the judge's demo path, then everything else. Pure-function domain logic + Vitest, Playwright e2e on the demo path, CI, and a verified-live GitHub Pages deploy. Animate with the emil animate process; reduced motion, WCAG AA, phone widths.
+6. Quality passes. Impeccable critique → audit → polish, fixing every material finding. Then the full test suite, a production build, and a headless Playwright pass over the live URL (zero console errors, 375 px viewport OK).
+7. Demo video (non-negotiable). Use the ui-demo skill to make `submission/video/demo.mp4` at the length HACKATHON.md requires: captioned, with the wow moment in the first 15 s (see hackathon-win `references/demo-video.md`). Put the voiceover lines in `submission/VIDEO-SCRIPT.md` for me to record; add synthesized narration only if it sounds natural.
+8. Submission kit (Phase 5). Everything in CLAUDE.md's *Definition of done*, plus every event-specific extra in HACKATHON.md.
+9. Ship. Merge to `main` (CLAUDE.md, *Git & deployment*), confirm the Pages URL loads in a fresh headless browser, then write `HANDOFF.md`: only what truly needs me (upload the video to YouTube, paste into Devpost, submit, any forms), in order, with the deadline in ET.
+
+Rules: never fabricate winners, users, data, testimonials or traction; cite every source; the AI-use disclosure must be truthful. Commit and push after every phase and keep `PROGRESS.md` current so a resumed session can continue.
+
+When you're done, reply with the live URL, the repo URL, the video path, what's left for me (from HANDOFF.md), and the hours remaining to the deadline.
